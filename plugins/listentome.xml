@@ -1,0 +1,25 @@
+﻿<grammar version="1.0" xml:lang="fr-FR" mode="voice" root="rulelistentome" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+  <rule id="rulelistentome" scope="public">
+    <example>Sarah écoute moi</example>
+    <tag>out.action=new Object(); </tag>
+	
+	<one-of>
+<!-- ACTIVATION -->
+		<item>Sarah, écoute moi s'il te plait.
+			<!-- ##DEBUT ZONE AUTOMATIQUE CONTEXT SARAH -->
+            <tag>out.action._attributes.context = "listentome.xml";</tag>
+		<!-- ##FIN ZONE AUTOMATIQUE CONTEXT SARAH -->
+			<tag>out.action._attributes.tts = "Je t'écoute!"</tag>
+		</item>
+<!-- DESACTIVATION -->
+		<item>Merci ça sera tout, SARAH
+			<tag>
+				out.action._attributes.context = "default";
+				out.action._attributes.tts = "mais de rien!"
+			</tag>
+		</item>
+	</one-of>
+
+    <tag>out.action._attributes.uri="http://127.0.0.1:8080/sarah/listentome";</tag>
+</rule> 
+</grammar>

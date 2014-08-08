@@ -1,0 +1,8 @@
+{
+  "modules" : { 
+    "listentome"  : {
+      "description": "Contrôler Sarah sans devoir dire Sarah",
+      "version"    : "1.0"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+<script type="text/javascript">
+    jQuery(document).ready(function () {
+        jQuery("#plugin-menu .plugin-nav a").click(function () {
+            jQuery("#plugin-menu .content > div").hide();
+            jQuery("#plugin-menu .plugin-nav ul li").removeClass("active");
+            jQuery(this).parent().addClass("active");
+            jQuery("#" + jQuery(this).data("toggle")).show();
+            return false;
+        });
+    });
+</script>
+
+<p class="page-header">
+	<span class="lead">Ce module permet de pouvoir donner des ordres sans devoir répéter SARAH à chaque fois.</span></br></br>
+	<span>Jérôme Veyret</span></br></br>
+</p>
+
+<div id="plugin-menu" class="row">
+    <!--Navigation-->
+    <div class="stretch col-md-3 well plugin-nav">
+        <ul class="nav nav-pills nav-stacked">
+             	<li><a href="#" data-toggle="plugin-principe">Principe</a></li>
+				<li><a href="#" data-toggle="plugin-utilisation">Utilisation et Configuration</a></li>
+				<li><a href="#" data-toggle="plugin-compatibilité">Infos et Compatibilités</a></li>
+				<li><a href="#" data-toggle="plugin-info">Info sur le lazy</a></li>
+        </ul>
+    </div>
+	<!--Content-->
+	<div class="col-md-9 well content">
+	<!--Version-->
+		<div class="panel panel-primary" id="plugin-version" > 
+			<div class="panel-heading">Versions</div>
+			<div class="panel-body">
+				<ul class="unstyled" >
+					<li><strong> Version 1.0 : </strong></br>
+					[X] Plugin de base</br>
+					</li></br>
+
+				</ul>
+			</div>
+		</div>
+	<!--Version-->
+		<div class="panel panel-primary" id="plugin-principe" style="display: none;"> 
+			<div class="panel-heading">principe</div>
+			<div class="panel-body">
+				<ul class="unstyled" >
+				<li>ListenToMe permet de pouvoir donner des ordres sans devoir répéter SARAH à chaque fois.
+				</li></br>
+				
+				<li>Pour cela, il crée des copies des XML principaux de vos plugins et en fait des XML lazy , c'est à dire des XML qui, par défaut, ne sont pas chargés par la grammaire du client Sarah. 
+				Il modifie ces XML en supprimant le mot SARAH dans la ou les occurences  &lt;item&gt;Sarah
+				</li></br>
+				
+				<li>Lorsque que vous activez ListenToMe, les XML d'origines de vos plugins sont ignorés et seuls les XML lazy sont chargés par le client SARAH. Ainsi vous pouvez donner vos ordres sans devoir répéter Sarah puisque ce mot à été supprimé.
+				</li></br>
+				</ul>
+				
+			</div>
+		</div>
+
+		<div class="panel panel-primary" id="plugin-utilisation" style="display: none;"> 
+			<div class="panel-heading">Utilisation et Configuration</div>
+			<div class="panel-body">
+			<ul class="unstyled" >
+				<li><strong>Cliquer sur le lien un peu plus bas pour afficher la page de sélection.</strong> </br>
+				Avant d'afficher la page, ListenToMe liste et contrôle les XML principaux de vos plugin</br>
+				<strong>sélectionnez ceux de votre choix</strong> puis <strong>valider</strong>.</br>
+				En validant, ListenToMe va créer les XMLlazzy des plugins sélectionnés.</br>
+				ListenToMe va également modifier son propre XML pour paramétrer le mode lazy.</br></br>
+				<center><a href='../sarah/listentome?action=pagechoix' target=_blank>Page de contrôle et de sélection des plugins</a></center>
+				</li></br>
+				
+				<li>Maintenant, il suffit de dire à Sarah:</br>
+				<em>- <strong>Sarah, écoute moi s'il te plait</strong></em></br>
+				Sarah vous réponds:</br>
+				<em>- Je t'écoute</em></br>
+				<strong>Vous pouvez maintenant commander vocalement les plugins choisis sans devoir dire Sarah</strong>
+				</li></br></br>
+				
+				<li>pour quitter immediatement ce mode, il suffit de dire à Sarah:</br>
+				<em>- <strong>Merci ça sera tout, SARAH</strong></em></br>
+				Sarah vous réponds:</br>
+				<em>- Je t'en pris</em></br>
+				<strong>La grammaire normale est maintenant rechargée par Sarah.</strong></br>
+				Le mode Lazy n'est pas permamant (Cf Info sur le lazy)
+				</li></br></br>
+				
+				<li>pour désactiver un pluggin, il suffit de retourner sur la page de configuration, de le déselectionner puis valider.</br>
+				</li></br></br>
+				</ul>
+			
+			</div>
+		</div>
+		
+		<div class="panel panel-primary" id="plugin-compatibilité" style="display: none;"> 
+			<div class="panel-heading">Infos et Compatibilités </div>
+			<div class="panel-body">
+				<ul class="unstyled" >
+					<li><strong>ListenToMe ne traite que le XML principale du plugin </strong>(nom_du_plugin.xml). </br>
+					Par exemple, pour xbmc, il ne traitera que <em>xbmc.xml</em> mais ne touchera pas à lazyxbmx.xml ou xbmcperso.xml
+					</li></br>
+					<li><strong>ListenToMe crée le fichier XML avec ce nom : lazyLTMnom_du_plugin.xml </strong> </br>
+					</li></br></br>
+					<li><strong>Pour être compatible avec ListenToMe, le XML du plugin doit contenir: </br> 
+					&lt;item&gt;Sarah ou &lt;item&gt;SARAH ou &lt;item&gt;sarah ...</strong></br>
+					et non :</br>
+					<em>&lt;item&nbsp;&nbsp;&gt;Sarah</em></br>
+					<em>&lt;&nbsp;&nbsp;item&gt;Sarah</em></br>
+					<em>&lt;item&gt;&nbsp;&nbsp;Sarah</em></br>
+					<em>&lt;item&gt;Bonjour Sarah</em></br>
+					<em>&lt;item&gt;Jarvis</em></br>
+					<em>&lt;item weight="2"&gt;Sarah</em></br>
+					Si un plugin ne respecte pas ce format, il suffit de corriger le XML d'origine.</br>
+					Par exemple, pour les plugins telovh, homeseer, dateconviviale (...) il suffit de retirer un espace de trop ou un <em>weight="2"</em> inutile.</br>
+					
+					</li></br>
+					<li>Les XML crées sont stocké dans le dossier du plugin ListenToMe.
+					</li></br>
+					<li>Les XML Lazy des pluggins désactivés ne sont jamais supprimés, il sont seulement ignorés.
+					</li></br>
+					<li>Si un pluggin est mise à jour sur Sarah, il suffit de retourner sur la page de configuration de ListenToMe et de valider.</br>
+					Le XML lazy sera recrée.
+					</li></br>
+					
+				</ul>				
+			</div>
+		</div>
+				
+	<div class="panel panel-primary" id="plugin-info" style="display: none;"> 
+			<div class="panel-heading">Info sur le lazy</div>
+			<div class="panel-body">
+			<ul class="unstyled" >
+				<strong>Le lazy (ou context de grammaire) de SARAH n'est pas permanant, après 60 secondes d'inactivité, il s'arrête .<br>
+				Il est possible de configurer ce temps (en milliseconde) dans le fichier <em>custom.ini</em> à la racine de Sarah:</strong></br>
+				<em>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ; Reset grammar to default after given timeout (millis) </br>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ctxTimeout=60000</br>
+				</em>
+				</ul>
+			
+			</div>
+		</div>
+
+	</div>
+</div>
